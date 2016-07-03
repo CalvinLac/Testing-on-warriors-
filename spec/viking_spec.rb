@@ -4,6 +4,8 @@ describe "Viking" do
 
 	let (:cal) {Viking.new("Calvin",69)}
 	let (:val) {Viking.new("Valvin",100)}
+	let (:empty_bow) {Bow.new(0)}
+	let (:almost_dead) {Viking.new("Villager", 1)}
 
 	describe "vik boi" do 
 		it 'displays the name of the viking just created' do 
@@ -49,6 +51,20 @@ describe "Viking" do
 		it 'should attack the other viking with fist' do 
 			cal.attack(val)
 			allow(val).to receive(:damage_with_fists)
+		end
+	end
+
+	describe "What happens when the bow has no arrows" do 
+		it 'viking should use fist instead' do 
+			cal.pick_up_weapon(empty_bow)
+			cal.attack(val)
+			allow(val).to receive(:damage_with_fists)
+		end
+	end
+
+	describe "What happens when you try and kill a viking" do 
+		it 'should give an error' do 
+			expect {cal.attack(almost_dead)}.to raise_error(RuntimeError)
 		end
 	end
 end
