@@ -44,4 +44,11 @@ describe "Viking" do
 			expect(val.health).to eq(97.5)
 		end
 	end
+
+	describe "What happens when you attack with no weapon" do 
+		it 'should attack the other viking with fist' do 
+			cal.attack(val)
+			allow(val).to receive(:damage_with_fists)
+		end
+	end
 end
